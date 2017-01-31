@@ -138,7 +138,8 @@ else:
             # V2: no (only in memory detail stats)
             if child.attrib['type'] == 'cachestats':
                 for stat in child.iterfind('./counter'):
-                    j['cache'][stat.attrib['name']] = stat.text
+                    if not stat.attrib['name'] in j['cache'].keys():
+                        j['cache'][stat.attrib['name']] = stat.text
         # V2 has @name = localhost_resolver, interal, external
         for child in root.iterfind('./views/view/cache'):
             if (child.attrib['name'] == '_default'):
